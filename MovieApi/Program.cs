@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+Ôªøusing Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,8 +38,8 @@ namespace MovieApi
             {
                 Name = "Testi elokuva",
                 Description = "Testi kuvaus",
-                SecretInfo = "Ei asiakkaille n‰ht‰v‰ksi!",
-                Reviews = new List<Review>() { new Review() { Rating = 5, Text = "Viisi t‰hte‰" }, new Review() { Rating = 3, Text = "Kolme t‰hte‰", IsCriticRated = true } }
+                SecretInfo = "Ei asiakkaille n√§ht√§v√§ksi!",
+                Reviews = new List<Review>() { new Review() { Rating = 5, Text = "Viisi t√§hte√§" }, new Review() { Rating = 3, Text = "Kolme t√§hte√§", IsCriticRated = true } }
             };
 
             context.Movies.Add(movie1);
@@ -49,7 +49,7 @@ namespace MovieApi
                 Name = "Elokuva kaksi",
                 Description = "Kaksi kuvaus",
                 SecretInfo = "Salaista tietoa",
-                Reviews = new List<Review>() { new Review() { Rating = 1, Text = "Yksi t‰hte‰", IsCriticRated = true } }
+                Reviews = new List<Review>() { new Review() { Rating = 1, Text = "Yksi t√§hte√§", IsCriticRated = true } }
             };
 
             context.Movies.Add(movie2);
