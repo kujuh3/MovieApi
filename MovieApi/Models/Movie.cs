@@ -17,6 +17,10 @@ namespace MovieApi.Models
 
         public ICollection<Review> Reviews { get; set; }
 
+        public ICollection<Genre> Genres { get; set; }
+
+        public ProducingCompany ProducingCompany { get; set; }
+
         public string SecretInfo { get; set; }
    
     }
