@@ -19,9 +19,8 @@ namespace MovieApi.Models
 
         public ICollection<Genre> Genres { get; set; }
 
-        public ProducingCompany ProducingCompany { get; set; }
+        public ICollection<ProducingCompany> ProducingCompanys { get; set; }
 
         public string SecretInfo { get; set; }
-   
     }
 }

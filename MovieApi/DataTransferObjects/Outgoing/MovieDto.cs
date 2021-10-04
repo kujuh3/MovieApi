@@ -18,9 +18,13 @@ namespace MovieApi.DataTransferObjects.Outgoing
 
         public string TestiTeksti { get; set; }
 
-        public List<ReviewDto> Reviews { get; set; }
+        public List<ReviewDto> Reviews { get; set; } = new List<ReviewDto>();
 
         public List<PersonDto> Actors { get; set; }
+        
+        public List<GenreDto> Genres { get; set; }
+
+        public List<ProducingCompanyDto> ProducingCompanys { get; set; }
 
     }
 

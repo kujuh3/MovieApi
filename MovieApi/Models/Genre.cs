@@ -7,7 +7,6 @@ namespace MovieApi.Models
 {
     public class Genre : BaseModel
     {
-        public long GenreId { get; set; }
 
         public string GenreName { get; set; }
 

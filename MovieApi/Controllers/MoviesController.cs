@@ -82,17 +82,27 @@ namespace MovieApi.Controllers
             return _mapper.Map<MovieDto>(movie);
         }
 
+        
+        //Tätä tehdessä tuli erittäin selväksi, että kurssi tarvii valmista materiaalia luentojen ulkopuolella tai selkeämpää opetusmallia....
+        //Toki kokeilemalla tulee hitaasti selville miten toimii, mutta lähtökohta kuitenkin se, että ei mitään kokemusta
+        //C# tai Visual Studio tai ylipäätäänsä .net ympäristöstä (tai tbh mistään muustakaan mitä kurssilla käyty läpi)
+        //Ei pahalla, mutta huonoin kurssi mitä olen käynyt AMK:n aikana...
         [HttpGet("GetMovieReviewTexts/{id}")]
-        public async Task<ActionResult<IEnumerable<string>>> GetMovieReviewTexts(long id, bool showOnlyCriticReviews = false)
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovieReviewTexts(long id, bool showOnlyCriticReviews = false)
         {
+
             //Example query where only fetch all movies reviews texts and nothing else and with optional query parameter that shows only critics or non critics texts
             var allReviewTexts = _context.Movies.Include(x => x.Reviews)
                 .SingleOrDefault(x => x.Id == id)?
                 .Reviews.Where(x => x.IsCriticRated == showOnlyCriticReviews)
                 .Select(x => x.Text);
 
-            return allReviewTexts.ToList();
+            var ReviewsDto = _mapper.Map<List<MovieDto>>(allReviewTexts);
+
+            return ReviewsDto;
         }
+
+        
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
@@ -117,6 +127,38 @@ namespace MovieApi.Controllers
 
             var movieDto = _mapper.Map<MovieDto>(movie);
             movieDto.Actors = _mapper.Map<List<PersonDto>>(movie.Crews.Where(x => x.Actor != null).Select(x => x.Actor.Person)).ToList();
+
+
+            return movieDto;
+        }
+
+        // GET: api/Movies/5
+        [HttpGet("GetMovieRatingPerId/{id}")]
+        public async Task<ActionResult<MovieDto>> GetMovieRatingPerId(long id, long rating)
+        {
+            //Example query where only fetch all movies reviews texts and nothing else and with optional query parameter
+            //var allReviewTexts = _context.Movies.Include(x => x.Reviews)
+            //    .SingleOrDefault(x => x.Id == id)?
+            //    .Reviews.Where(x => x.IsCriticRated == showOnlyCriticReviews)
+            //    .Select(x => x.Text);
+
+            var movie = await _context.Movies
+                .Include(x => x.Reviews)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            var ratings = _context.Movies
+                .Include(x => x.Reviews)
+                .SingleOrDefault(x => x.Id == id)?
+                .Reviews.Where(x => x.Rating == rating);
+
+            if (movie == null ^ ratings == null)
+            {
+                return NotFound();
+            }
+
+            var movieDto = _mapper.Map<MovieDto>(movie);
+            movieDto.Reviews = _mapper.Map<List<ReviewDto>>(ratings).ToList();
+
 
             return movieDto;
         }

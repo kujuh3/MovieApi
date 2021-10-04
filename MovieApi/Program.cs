@@ -39,7 +39,7 @@ namespace MovieApi
                 Name = "Testi elokuva",
                 Description = "Testi kuvaus",
                 SecretInfo = "Ei asiakkaille nähtäväksi!",
-                Reviews = new List<Review>() { new Review() { Rating = 5, Text = "Viisi tähteä" }, new Review() { Rating = 3, Text = "Kolme tähteä", IsCriticRated = true } }
+                Reviews = new List<Review>() { new Review() { Rating = 5, Text = "Viisi tähteä" }, new Review() { Rating = 3, Text = "Kolme tähteä", IsCriticRated = true }, new Review() { Rating = 3, Text = "Aika paska", IsCriticRated = true } },
             };
 
             context.Movies.Add(movie1);
@@ -49,7 +49,9 @@ namespace MovieApi
                 Name = "Elokuva kaksi",
                 Description = "Kaksi kuvaus",
                 SecretInfo = "Salaista tietoa",
-                Reviews = new List<Review>() { new Review() { Rating = 1, Text = "Yksi tähteä", IsCriticRated = true } }
+                Reviews = new List<Review>() { new Review() { Rating = 1, Text = "Yksi tähteä", IsCriticRated = true } },
+                Genres = new List<Genre>() { new Genre() { GenreName = "Horror" } },
+                ProducingCompanys = new List<ProducingCompany>(){ new ProducingCompany() { CompanyName = "Pixar" } }
             };
 
             context.Movies.Add(movie2);

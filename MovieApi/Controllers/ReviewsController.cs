@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApi.Models;
+using MovieApi.DataTransferObjects.Outgoing;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace MovieApi.Controllers
 {
@@ -14,30 +17,34 @@ namespace MovieApi.Controllers
     public class ReviewsController : ControllerBase
     {
         private readonly MovieContext _context;
+        private readonly IMapper _mapper;
 
-        public ReviewsController(MovieContext context)
+        public ReviewsController(MovieContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
+        //?????
         [HttpGet("GetMovieReviews/{movieId}")]
-        public async Task<ActionResult<IEnumerable<Review>>> GetMovieReviews(long movieId)
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetMovieReviews(long movieId)
         {
             var movieReviews = await _context.Reviews.Where(x => x.MovieId == movieId).ToArrayAsync();
-
-            return movieReviews;
+            var Reviews = _mapper.Map<List<ReviewDto>>(movieReviews);
+            return Reviews;
         }
 
         // GET: api/Reviews
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            var Reviews = await _context.Reviews.ToListAsync();
+            return _mapper.Map<List<ReviewDto>>(Reviews);
         }
 
         // GET: api/Reviews/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Review>> GetReview(long id)
+        public async Task<ActionResult<ReviewDto>> GetReview(long id)
         {
             var review = await _context.Reviews.FindAsync(id);
 
@@ -46,7 +53,7 @@ namespace MovieApi.Controllers
                 return NotFound();
             }
 
-            return review;
+            return _mapper.Map<ReviewDto>(review);
         }
 
         // PUT: api/Reviews/5

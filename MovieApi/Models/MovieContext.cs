@@ -25,7 +25,7 @@ namespace MovieApi.Models
 
         public DbSet<Person> Persons { get; set; }
 
-        public DbSet<ProducingCompany> ProducingCompanies { get; set; }
+        public DbSet<ProducingCompany> ProducingCompanys { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
 
