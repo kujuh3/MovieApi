@@ -132,25 +132,22 @@ namespace MovieApi.Controllers
             return movieDto;
         }
 
-        // GET: api/Movies/5
+        // GET: api/GETMOVIERATINGPERID
         [HttpGet("GetMovieRatingPerId/{id}")]
         public async Task<ActionResult<MovieDto>> GetMovieRatingPerId(long id, long rating)
         {
-            //Example query where only fetch all movies reviews texts and nothing else and with optional query parameter
-            //var allReviewTexts = _context.Movies.Include(x => x.Reviews)
-            //    .SingleOrDefault(x => x.Id == id)?
-            //    .Reviews.Where(x => x.IsCriticRated == showOnlyCriticReviews)
-            //    .Select(x => x.Text);
-
+            //Fetch movies corresponding to given id
             var movie = await _context.Movies
                 .Include(x => x.Reviews)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
+            //Fetch rating corresponding to given rating
             var ratings = _context.Movies
                 .Include(x => x.Reviews)
                 .SingleOrDefault(x => x.Id == id)?
                 .Reviews.Where(x => x.Rating == rating);
 
+           
             if (movie == null ^ ratings == null)
             {
                 return NotFound();
@@ -159,9 +156,26 @@ namespace MovieApi.Controllers
             var movieDto = _mapper.Map<MovieDto>(movie);
             movieDto.Reviews = _mapper.Map<List<ReviewDto>>(ratings).ToList();
 
-
             return movieDto;
         }
+
+        //[HttpGet("GetActors/{id}")]
+        //public async Task<ActionResult<MovieDto>> GetMovieActors(long id)
+        //{
+            //     var movie = await _context.Movies
+            //        .Include(x => x.Crews).ThenInclude(x => x.Actor).ThenInclude(x => x.Person)
+            //        .AsNoTracking()
+            //        .SingleOrDefaultAsync(x => x.Id == id);
+            //
+            //    if (movie == null)
+            //   {
+            //    return NotFound(); 
+            //}
+            //
+            //   var movieDto = _mapper.Map<List<PersonDto>>(movie).ToList();
+
+            //   return movieDto;
+        //}
 
         // PUT: api/Movies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

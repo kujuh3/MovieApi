@@ -20,7 +20,7 @@ namespace MovieApi.DataTransferObjects.Outgoing
 
         public List<ReviewDto> Reviews { get; set; } = new List<ReviewDto>();
 
-        public List<PersonDto> Actors { get; set; }
+        public List<PersonDto> Actors { get; set; } 
         
         public List<GenreDto> Genres { get; set; }
 

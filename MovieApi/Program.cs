@@ -66,10 +66,10 @@ namespace MovieApi
         {
             var actorPerson = new Person();
             actorPerson.FirstName = "Pena";
+            actorPerson.LastName = "Kela";
             actorPerson.Id = 1;
 
             context.Persons.Add(actorPerson);
-
 
             var actor = new Actor();
             actor.Id = 1;
@@ -102,6 +102,8 @@ namespace MovieApi
             directorCrew.MovieId = movieId;
 
             context.Crews.Add(directorCrew);
+
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
